@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+  mail:
+      host: smtp.yeah.net
+      username: nxmu20@yeah.net
+      password: nxmuyeah2020
+      port: 25
+      protocol: smtp
+      default-encoding: UTF-8
+server:
+  port: 8080

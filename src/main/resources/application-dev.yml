@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: root
+    password: 2019@qwerty
+    url: jdbc:mysql://t273980q19.zicp.vip:14285/nxmu_bigdata?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.nxmu.model
+
+#showSql
+logging:
+  level:
+    com:
+      nxmu:
+        mapper : debug
