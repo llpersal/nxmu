@@ -1,6 +1,6 @@
 package com.nxmu.service;
 
-import com.nxmu.common.utils.VerifyCode;
+import com.nxmu.common.utils.VerifyCodeUtil;
 import com.nxmu.exception.ResultException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,7 +22,7 @@ public class VerifyService {
 
         try {
             //服务器自动创建输出流，目标指向浏览器
-            VerifyCode randomValidateCode = new VerifyCode();
+            VerifyCodeUtil randomValidateCode = new VerifyCodeUtil();
             randomValidateCode.getRandcode(request, response);
         } catch (Exception e) {
             throw new ResultException("获取验证码失败，请重试！");
@@ -38,5 +38,19 @@ public class VerifyService {
         if (!verifyCode.equals(loginCode)) {
             throw new ResultException("验证码不正确，请重新输入！");
         }
+    }
+
+    public String generateVerifyCode(HttpServletRequest request) {
+        String verifyCode = VerifyCodeUtil.randomCodeInt5();
+
+        HttpSession session = request.getSession();
+
+        //将生成的随机字符串保存到session中
+        session.removeAttribute(VERIFY_CODE_KEY);
+        session.setAttribute(VERIFY_CODE_KEY, verifyCode);
+        //设置失效时间1分钟
+        session.setMaxInactiveInterval(60);
+
+        return verifyCode;
     }
 }

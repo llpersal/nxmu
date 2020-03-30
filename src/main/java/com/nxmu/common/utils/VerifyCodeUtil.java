@@ -13,13 +13,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import static com.nxmu.common.Constant.CODE_LENGTH_5;
 import static com.nxmu.common.Constant.VERIFY_CODE_KEY;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class VerifyCode {
+public class VerifyCodeUtil {
     private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生数字与字母组合的字符串
     private int width = 95;// 图片宽
     private int height = 25;// 图片高
@@ -116,5 +117,17 @@ public class VerifyCode {
     public String getRandomString(int num) {
         return String.valueOf(randString.charAt(num));
     }
+
+    /**
+     * 随机产生指定位数的随机数
+     */
+    public static String randomCodeInt5() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < CODE_LENGTH_5; i++) {
+            stringBuilder.append(new Random().nextInt(10));
+        }
+        return stringBuilder.toString();
+    }
+
 }
 

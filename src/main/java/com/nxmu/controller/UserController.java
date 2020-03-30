@@ -35,8 +35,9 @@ public class UserController {
 
     @RequestMapping(value = USER_VERIFY_CODE, method = RequestMethod.GET)
     @ApiOperation(value = "获取验证码", notes = "获取验证码")
-    public void verifyCode(HttpServletRequest request, HttpServletResponse response) {
-        verifyService.getVerifyCode(request, response);
+    public ApiResponse verifyCode(HttpServletRequest request, HttpServletResponse response) {
+        //verifyService.getVerifyCode(request, response);
+        return ApiResponse.success(verifyService.generateVerifyCode(request));
     }
 
     @RequestMapping(value = USER_LOGIN, method = RequestMethod.POST)

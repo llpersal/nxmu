@@ -13,7 +13,7 @@ import lombok.Data;
     @ApiModelProperty("邮箱")
     private String email;
     @ApiModelProperty("角色ID：登录时不需要，注册时需要")
-    private int roleId;
+    private Integer roleId;
     @ApiModelProperty("验证码")
     private String verifyCode;
 }
