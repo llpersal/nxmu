@@ -72,6 +72,7 @@ public class UserService {
 
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(user, loginUser);
+        loginUser.setUserId(user.getId());
         loginUser.setRoleDesc(RoleEnum.getRoleDesc(loginUser.getRoleId()));
 
         //把用户信息写到session
