@@ -1,5 +1,6 @@
 package com.nxmu.service;
 
+import com.nxmu.common.enums.RoleEnum;
 import com.nxmu.common.utils.FormatUtil;
 import com.nxmu.common.utils.PasswordUtil;
 import com.nxmu.common.utils.SecurityUtil;
@@ -45,7 +46,10 @@ public class UserService {
     private PasswordResetMapper passwordResetMapper;
 
     public User getUser(int id) {
-        return userMapper.selectByPrimaryKey(id);
+        User user = userMapper.selectByPrimaryKey(id);
+        user.setRoleDesc(RoleEnum.getRoleDesc(user.getRoleId()));
+
+        return user;
     }
 
     public LoginUser login(LoginInfo loginInfo, HttpServletRequest request, HttpServletResponse response) {
@@ -66,9 +70,12 @@ public class UserService {
             throw new ResultException("用户名密码错误，请重新输入！");
         }
 
-        //把用户信息写到session
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(user, loginUser);
+        loginUser.setUserId(user.getId());
+        loginUser.setRoleDesc(RoleEnum.getRoleDesc(loginUser.getRoleId()));
+
+        //把用户信息写到session
         loginUser.setToken(UUID.randomUUID().toString().replaceAll("-",""));
         session.setAttribute(USER_INFO, loginUser);
         session.setMaxInactiveInterval(3600);
@@ -84,8 +91,12 @@ public class UserService {
 
     public int register(LoginInfo loginInfo, HttpServletRequest request) {
         if (loginInfo == null || StringUtils.isEmpty(loginInfo.getUserName()) || StringUtils.isEmpty(loginInfo.getPassword())
-              || loginInfo.getRoleId() == 0  || StringUtils.isEmpty(loginInfo.getEmail())) {
+              || StringUtils.isEmpty(loginInfo.getEmail())) {
             throw new ResultException("用户名密码、邮箱不能为空！");
+        }
+
+        if (loginInfo.getRoleId() == null) {
+            loginInfo.setRoleId(RoleEnum.USER.getId());
         }
 
         //验证验证码是否正确
