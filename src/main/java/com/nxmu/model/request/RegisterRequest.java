@@ -1,11 +1,13 @@
-package com.nxmu.model.vo;
+package com.nxmu.model.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-@ApiModel public class LoginInfo {
+@ApiModel public class RegisterRequest implements Serializable {
     @ApiModelProperty("用户名")
     private String userName;
     @ApiModelProperty("密码")

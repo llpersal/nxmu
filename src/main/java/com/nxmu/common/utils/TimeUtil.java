@@ -11,8 +11,15 @@ public class TimeUtil {
         return sdf.format(date);
     }
 
+    public static String timeToDate(Long timeStamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sd = sdf.format(new Date(timeStamp));
+
+        return sd;
+    }
+
     public static void main(String[] args) {
-        System.out.println(getCurrentYear());
+        System.out.println(timeToDate(1602224605000L));
     }
 
 }

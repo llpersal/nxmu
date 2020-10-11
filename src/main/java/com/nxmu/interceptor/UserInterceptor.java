@@ -1,7 +1,7 @@
 package com.nxmu.interceptor;
 
 import com.nxmu.exception.ResultException;
-import com.nxmu.model.vo.LoginUser;
+import com.nxmu.model.vo.LoginUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,7 +24,7 @@ public class UserInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        LoginUser user = (LoginUser) request.getSession().getAttribute("user");
+        LoginUserVO user = (LoginUserVO) request.getSession().getAttribute("user");
         Cookie[] cookies = request.getCookies();
 
         if (user == null || cookies == null || cookies.length <= 0){

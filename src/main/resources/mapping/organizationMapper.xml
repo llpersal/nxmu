@@ -89,6 +89,7 @@
     <include refid="Base_Column_List" />
     from organization
     where id = #{id,jdbcType=INTEGER}
+    and is_del = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from organization

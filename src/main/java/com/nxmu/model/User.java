@@ -22,8 +22,6 @@ public class User {
 
     private Integer roleId;
 
-    private String roleDesc;
-
     private Integer orgId;
 
     private String password;
